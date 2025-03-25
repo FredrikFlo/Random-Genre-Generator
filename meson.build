@@ -28,6 +28,7 @@ src = []
 exe = executable(
   'program',
   src,
+'AnimationW.cpp',
 'FileHandling.cpp',
 'Genre.cpp',
 'SubGenre.cpp',
