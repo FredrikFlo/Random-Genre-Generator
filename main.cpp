@@ -2,9 +2,11 @@
 #include "SubGenre.h"
 #include "FileHandling.h"
 #include "test.h"
+#include "GenreWindow.h"
 
 int main() 
 {
+    /*
     "Testing av klasse funksjoner";
     
     Genre rock("rock");
@@ -36,8 +38,13 @@ int main()
     std::cout << rock.GetRating() << std::endl
               << pop.GetRating() << std::endl;
    
+    */
 
     auto genreVector = LoadFromFile("test.txt");
-    SaveToFile("test2.txt", genreVector);
+    // SaveToFile("test2.txt", genreVector);
+
+    GenreWindow win{};
+    win.DrawTable(genreVector.at(0));
+    win.wait_for_close();
     return 0;
 }
