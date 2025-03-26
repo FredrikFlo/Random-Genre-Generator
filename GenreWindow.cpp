@@ -12,6 +12,9 @@ void GenreWindow::DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::
     //Tegne selve texten i den cellen
     this->draw_text({position.x, position.y}, genrePtr->GetName(), TDT4102::Color::black, 23, TDT4102::Font::arial_bold);
 
+    //Ønsker å knytte en button til hver SubGenre i subGenres vektoren.
+
+
     //Tegne cellen til hvor ratingen befinner seg
     this->draw_line({position.x + genreCellWidth, position.y}, {position.x + genreCellWidth + ratingCellWidth, position.y});
     this->draw_line({position.x + genreCellWidth + ratingCellWidth, position.y}, {position.x + genreCellWidth + ratingCellWidth, position.y + CellHeight});
@@ -35,4 +38,12 @@ void GenreWindow::DrawTable(std::shared_ptr<Genre> genrePtr)
         this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(count + 1) + 2});
         count++;
     }
+}
+
+GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
+                             button({650, 325}, buttonWidth, buttonHeight, "RATE"),
+                             dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec) 
+{
+    add(button);
+    add(dropDownList);
 }
