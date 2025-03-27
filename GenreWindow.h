@@ -3,6 +3,7 @@
 #include "AnimationWindow.h"
 #include "Genre.h"
 #include "SubGenre.h"
+#include "FileHandling.h"
 #include "widgets/Button.h"
 #include "widgets/DropdownList.h"
 #include "Image.h"
@@ -31,9 +32,15 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button rightButton;
     TDT4102::Button homeButton;
     TDT4102::DropdownList dropDownList;
+    int count = 0;
+    
     public:
+    const std::vector<std::shared_ptr<Genre>> genreVector = LoadFromFile("test.txt");
     void DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::Point& position); //Bør funke for både en Genre og SubGenre pointer
-    void DrawTable(std::shared_ptr<Genre> genrePtr); //Vil BARE funke for Genre pointer
+    void DrawTable(); //Vil BARE funke for Genre pointer
+    void DecrementCount();
+    void IncrementCount();
+    int GetCount() const {return count;}
     
     //Constructors
     GenreWindow();

@@ -26,17 +26,35 @@ void GenreWindow::DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::
     this->draw_text({position.x + genreCellWidth, position.y}, temp, TDT4102::Color::black, 23, TDT4102::Font::arial);
 }
 
-void GenreWindow::DrawTable(std::shared_ptr<Genre> genrePtr)
+void GenreWindow::DrawTable()
 {
-    genrePtr->SetGenreRating();
-    this->DrawGenreCell(genrePtr, tableCorner);
+    genreVector.at(count)->SetGenreRating();
+    this->DrawGenreCell(genreVector.at(count), tableCorner);
 
     int count = 0;
-    for(auto sg : genrePtr->subGenres)
+    for(auto sg : genreVector.at(count)->subGenres)
     {
         // La til static_pointer_cast fordi det funket ikke ellers. Hvorfor? Vet ikke.
         this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(count + 1) + 2});
         count++;
+    }
+}
+
+void GenreWindow::DecrementCount()
+{
+    count--;
+    if (count > 0)
+    {
+        count = genreVector.size() + count;
+    }
+}
+
+void GenreWindow::IncrementCount()
+{
+    count++; 
+    if(count >= genreVector.size())
+    {
+        count = count - genreVector.size();
     }
 }
 
