@@ -40,14 +40,14 @@ int main()
    
     */
 
-    TDT4102::Image image("Pop.jpg");
     // SaveToFile("test2.txt", genreVector);
 
     GenreWindow win{};
+    win.images.at(win.GetCount());
     while(!win.should_close())
     {
         win.DrawTable();
-        win.draw_image({650, 150}, image, 350, 350);
+        win.DrawImage();
         win.next_frame();
     }
     return 0;

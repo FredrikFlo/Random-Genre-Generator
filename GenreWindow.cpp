@@ -58,6 +58,11 @@ void GenreWindow::IncrementCount()
     }
 }
 
+void GenreWindow::DrawImage()
+{
+    this->draw_image({650, 150}, images.at(count), 350, 350);
+}
+
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
                              rateButton({650 + dropDownWidth/2 - buttonWidth/2, 600}, buttonWidth, buttonHeight, "RATE"),
                              leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
@@ -70,6 +75,13 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     add(rightButton);
     add(homeButton);
     add(dropDownList);
+
+    //Images
+    for (auto g : genreVector)
+    {
+        images.emplace_back(g->GetName() + ".jpg");
+    }
+
 
     //Callbacks
     leftButton.setCallback(std::bind(&GenreWindow::DecrementCount, this));
