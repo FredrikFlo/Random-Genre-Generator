@@ -41,10 +41,12 @@ int main()
     */
 
     auto genreVector = LoadFromFile("test.txt");
+    TDT4102::Image image("Pop.jpg");
     // SaveToFile("test2.txt", genreVector);
 
     GenreWindow win{};
     win.DrawTable(genreVector.at(0));
+    win.draw_image({650, 150}, image, 350, 350);
     win.wait_for_close();
     return 0;
 }

@@ -41,9 +41,15 @@ void GenreWindow::DrawTable(std::shared_ptr<Genre> genrePtr)
 }
 
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
-                             button({650, 325}, buttonWidth, buttonHeight, "RATE"),
+                             rateButton({650 + dropDownWidth/2 - buttonWidth/2, 600}, buttonWidth, buttonHeight, "RATE"),
+                             leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
+                             rightButton({windowWidth-25-pageButtonWidth, 200}, pageButtonWidth, pageButtonHeight, ">"),
+                             homeButton({25, 25}, 100, 100, "HOME"),
                              dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec) 
 {
-    add(button);
+    add(rateButton);
+    add(leftButton);
+    add(rightButton);
+    add(homeButton);
     add(dropDownList);
 }

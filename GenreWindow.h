@@ -5,6 +5,7 @@
 #include "SubGenre.h"
 #include "widgets/Button.h"
 #include "widgets/DropdownList.h"
+#include "Image.h"
 #include <format>
 
 static constexpr int genreCellWidth = 350;
@@ -14,6 +15,8 @@ static constexpr int windowWidth = 1200;
 static constexpr int windowHeight = 800;
 static constexpr int buttonWidth = 200;
 static constexpr int buttonHeight = 75;
+static constexpr int pageButtonHeight = 300;
+static constexpr int pageButtonWidth = 75;
 static constexpr int dropDownWidth = 350;
 static constexpr int dropDownHeight = 75;
 static TDT4102::Point tableCorner = {150, 25};
@@ -23,7 +26,10 @@ class GenreWindow: public TDT4102::AnimationWindow
 {
     private:
     std::vector<std::string> vec = std::vector<std::string> (19, "TEST");
-    TDT4102::Button button;
+    TDT4102::Button rateButton;
+    TDT4102::Button leftButton;
+    TDT4102::Button rightButton;
+    TDT4102::Button homeButton;
     TDT4102::DropdownList dropDownList;
     public:
     void DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::Point& position); //Bør funke for både en Genre og SubGenre pointer
