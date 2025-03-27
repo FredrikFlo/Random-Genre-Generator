@@ -31,19 +31,19 @@ void GenreWindow::DrawTable()
     genreVector.at(count)->SetGenreRating();
     this->DrawGenreCell(genreVector.at(count), tableCorner);
 
-    int count = 0;
+    int cellCount = 0;
     for(auto sg : genreVector.at(count)->subGenres)
     {
         // La til static_pointer_cast fordi det funket ikke ellers. Hvorfor? Vet ikke.
-        this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(count + 1) + 2});
-        count++;
+        this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(cellCount + 1) + 2});
+        cellCount++;
     }
 }
 
 void GenreWindow::DecrementCount()
 {
     count--;
-    if (count > 0)
+    if (count < 0)
     {
         count = genreVector.size() + count;
     }
@@ -70,4 +70,8 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     add(rightButton);
     add(homeButton);
     add(dropDownList);
+
+    //Callbacks
+    leftButton.setCallback(std::bind(&GenreWindow::DecrementCount, this));
+    rightButton.setCallback(std::bind(&GenreWindow::IncrementCount, this));
 }
