@@ -42,6 +42,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     void DecrementCount();
     void IncrementCount();
     void DrawImage();
+    void UpdateDropDown();
     int GetCount() const {return count;}
     
     //Constructors

@@ -38,7 +38,8 @@ void CreateSubGenre(std::istringstream &iss, std::string &name, std::string &tem
     Strip(temp);
     isRated = std::stoi(temp);
 
-    genreVector.at(genreVector.size() - 1)->AddGenre(std::make_shared<SubGenre>(name, rating, isRated));
+    genreVector.at(genreVector.size()-1)->AddGenre(std::make_shared<SubGenre>(name, rating, isRated)); //Lagrer SubGenre objektet i subGenres
+    genreVector.at(genreVector.size()-1)->sgNames.push_back(name); //Legger til navnet i en vektor
 }
 
 void CreateGenre(std::istringstream &iss, std::string &name, std::vector<std::shared_ptr<Genre>> &genreVector)

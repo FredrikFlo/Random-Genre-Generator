@@ -48,6 +48,7 @@ int main()
     {
         win.DrawTable();
         win.DrawImage();
+        win.UpdateDropDown();
         win.next_frame();
     }
     return 0;
