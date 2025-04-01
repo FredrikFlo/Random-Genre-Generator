@@ -43,12 +43,14 @@ int main()
     // SaveToFile("test2.txt", genreVector);
 
     GenreWindow win{};
-    win.images.at(win.GetCount());
+
+    //Funker IKKE!
     while(!win.should_close())
     {
         win.DrawTable();
         win.DrawImage();
         win.UpdateDropDown();
+        win.draw_text({1050, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
         win.next_frame();
     }
     return 0;

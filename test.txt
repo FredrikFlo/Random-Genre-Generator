@@ -1,13 +1,11 @@
 Genre: Pop
 SubGenre: Baroque Pop  |  1.9  |  1
 SubGenre: Country Pop  |  0  |  0
-SubGenre: Contemporary R&B  |  0  |  0
 SubGenre: Cowboy Pop  |  0  |  0
 SubGenre: Dancehall Pop  |  0  |  0
 SubGenre: Electro Pop  |  0  |  0
 SubGenre: Emo Pop  |  0  |  0
 SubGenre: Folk-Pop  |  0  |  0
-SubGenre: Hip-Pop  |  0  |  0
 SubGenre: Indie Pop  |  0  |  0
 SubGenre: Pop Punk  |  0  |  0
 SubGenre: Pop Rap  |  0  |  0
@@ -45,9 +43,7 @@ SubGenre: East Coast Rap  |  0  |  0
 SubGenre: Gangsta Rap  |  0  |  0
 SubGenre: Hardcore Rap  |  0  |  0
 SubGenre: Hip-Hop  |  0  |  0
-SubGenre: Latin Rap  |  0  |  0
 SubGenre: Old School Rap  |  0  |  0
-SubGenre: Rap  |  0  |  0
 SubGenre: Underground Rap  |  0  |  0
 SubGenre: West Coast Rap  |  0  |  0
 SubGenre: Mumble Rap  |  0  |  0
@@ -92,11 +88,11 @@ SubGenre: Crossover Jazz  |  0  |  0
 SubGenre: Dixieland  |  0  |  0
 SubGenre: Ethio-Jazz Fusion  |  0  |  0
 SubGenre: Hard Bop  |  0  |  0
-SubGenre: Latin Jazz  |  0  |  0
 SubGenre: Mainstream Jazz  |  0  |  0
 SubGenre: Ragtime  |  0  |  0
 SubGenre: Smooth Jazz  |  0  |  0
 SubGenre: Trad Jazz  |  0  |  0
+SubGenre: Jazz Fusion |  0  |  0
 Genre: Blues
 SubGenre: Acoustic Blues  |  0  |  0
 SubGenre: Chicago Blues  |  0  |  0
@@ -134,6 +130,8 @@ SubGenre: Tropical  |  0  |  0
 SubGenre: Bachata  |  0  |  0
 SubGenre: Rumba  |  0  |  0
 SubGenre: Tango  |  0  |  0
+SubGenre: Latin Rap  |  0  |  0
+SubGenre: Latin Jazz  |  0  |  0
 Genre: Alternative
 SubGenre: Alternative Rock  |  0  |  0
 SubGenre: College Rock  |  0  |  0

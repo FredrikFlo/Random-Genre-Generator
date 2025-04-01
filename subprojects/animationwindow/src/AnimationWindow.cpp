@@ -261,7 +261,7 @@ void TDT4102::AnimationWindow::draw_text(TDT4102::Point topLeftPoint, std::strin
     textWindowCounter++;
     std::stringstream windowName;
     windowName << "text" << textWindowCounter;
-    startNuklearDraw(topLeftPoint, windowName.str());
+    startNuklearDraw(topLeftPoint, windowName.str(), textToShow.size() * 20); // her ble denne dude endret. 
     fontCache.setFont(context, font, fontSize);
     nk_color textColour{color.redChannel, color.greenChannel, color.blueChannel, color.alphaChannel};
     nk_text_colored(context, textToShow.c_str(), textToShow.size(), NK_TEXT_ALIGN_LEFT, textColour);
