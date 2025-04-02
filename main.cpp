@@ -52,6 +52,22 @@ int main()
         win.UpdateDropDown();
         win.DrawRatingText();
         win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
+        if (win.is_key_down(KeyboardKey::LEFT))
+        {
+            win.DecrementCount();
+        }
+        if (win.is_key_down(KeyboardKey::RIGHT))
+        {
+            win.IncrementCount();
+        }
+        if (win.is_key_down(KeyboardKey::UP))
+        {
+            win.DecrementDropdownIndex();
+        }
+        if (win.is_key_down(KeyboardKey::DOWN))
+        {
+            win.IncrementDropdownIndex(); 
+        }
         win.next_frame();
     }
     return 0;

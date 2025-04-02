@@ -31,3 +31,27 @@ void TDT4102::DropdownList::update(nk_context *context) {
 void TDT4102::DropdownList::setOptions(std::vector<std::string> &updatedOptionsList) {
     options = updatedOptionsList;
 }
+
+void TDT4102::DropdownList::setSelectedIndex(int newIndex)
+{
+    while (true)
+    {
+        if (newIndex >= int(options.size()))
+        {
+            newIndex -= options.size();
+            continue;
+        }
+        else if (newIndex < 0)
+        {
+            newIndex += int(options.size());
+            continue;
+        }
+        break;
+    }
+    selectedIndex = newIndex;
+}
+
+int TDT4102::DropdownList::getIndex()
+{
+    return selectedIndex; 
+}
