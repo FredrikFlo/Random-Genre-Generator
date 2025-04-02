@@ -60,7 +60,7 @@ void GenreWindow::IncrementCount()
 
 void GenreWindow::DrawImage()
 {
-    this->draw_image({650, 150}, images.at(count), 350, 350);
+    this->draw_image({650, 175}, images.at(count), 350, 350);
 }
 
 void GenreWindow::UpdateDropDown()
@@ -71,32 +71,30 @@ void GenreWindow::UpdateDropDown()
 void GenreWindow::RateCallback()
 {
     int index = stringToCountMapVector.at(count).at(dropDownList.getSelectedValue());
-    try 
-    {
-        double newSGRating = std::stod(textInput.getText());
-        genreVector.at(count)->subGenres.at(index)->SetSubGenreRating(newSGRating);
-    }
-    catch(std::invalid_argument& e)
-    {
-        // Kanskje vise en error på skjermen
-    }
-    textInput.setText("");
+    double newSGRating = slider.getValue() / 10.0;
+    genreVector.at(count)->subGenres.at(index)->SetSubGenreRating(newSGRating);
+    slider.setValue(0); // Denne ble laget inne i Slider filen.
+}
+
+void GenreWindow::DrawRatingText()
+{
+    this->draw_text({650+5+buttonWidth, 600+10}, std::format("{:.1f}", slider.getValue() / 10.0), TDT4102::Color::black, 30U, TDT4102::Font::arial_bold);
 }
 
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
-                             rateButton({630 + dropDownWidth/2 - buttonWidth/2, 600}, buttonWidth, buttonHeight, "RATE"),
+                             rateButton({650, 600}, buttonWidth, buttonHeight, "RATE"),
                              leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
                              rightButton({windowWidth-25-pageButtonWidth, 200}, pageButtonWidth, pageButtonHeight, ">"),
                              homeButton({25, 25}, 100, 100, "HOME"),
                              dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec),
-                             textInput({930, 610}, 80, 30, "") 
+                             slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1) 
 {
     add(rateButton);
     add(leftButton);
     add(rightButton);
     add(homeButton);
-    add(dropDownList); 
-    add(textInput); 
+    add(dropDownList);  
+    add(slider);
 
     for (auto g : genreVector)
     {

@@ -50,7 +50,8 @@ int main()
         win.DrawTable();
         win.DrawImage();
         win.UpdateDropDown();
-        win.draw_text({1050, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
+        win.DrawRatingText();
+        win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
         win.next_frame();
     }
     return 0;

@@ -4,6 +4,10 @@ void SubGenre::SetSubGenreRating(double rating) // setter genreRating lik rating
 {
     this->genreRating = rating;
     this->isRated = true; 
+    if (int(rating) == 0)
+    {
+        this->isRated = false; 
+    }
 }
 
 void SubGenre::AddGenre(std::shared_ptr<SubGenre> subGenre) //Utløser en feil fordi SubGenre skal ikke trenge denne functionen

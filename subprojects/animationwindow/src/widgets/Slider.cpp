@@ -12,6 +12,11 @@ int TDT4102::Slider::getValue() const {
     return value;
 }
 
+void TDT4102::Slider::setValue(int newValue)
+{
+    value = newValue; 
+}
+
 void TDT4102::Slider::update(nk_context *context) {
 
     struct nk_style* s = &context->style;    

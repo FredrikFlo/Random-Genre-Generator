@@ -23,6 +23,7 @@ namespace TDT4102 {
     public:
         explicit Slider(TDT4102::Point location, unsigned int width, unsigned int height, int min = 0, int max = 100, int initialValue = 0, int step = 1);
         int getValue() const;
+        void setValue(int newValue);
         void setSliderBarColor(Color newColor) {sliderBarColor = nk_color{(nk_byte)newColor.redChannel, (nk_byte)newColor.greenChannel, (nk_byte)newColor.blueChannel, (nk_byte)newColor.alphaChannel};};
         void setSliderBarColorActive(Color newColor) {sliderBarColorActive = nk_color{(nk_byte)newColor.redChannel, (nk_byte)newColor.greenChannel, (nk_byte)newColor.blueChannel, (nk_byte)newColor.alphaChannel};}
         void setSliderBarColorHover(Color newColor) {sliderBarColorHover = nk_color{(nk_byte)newColor.redChannel, (nk_byte)newColor.greenChannel, (nk_byte)newColor.blueChannel, (nk_byte)newColor.alphaChannel};}
