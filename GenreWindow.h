@@ -39,6 +39,8 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button homeButton;
     TDT4102::DropdownList dropDownList;
     TDT4102::Slider slider;
+    TDT4102::Button plusButton; 
+    TDT4102::Button minusButton; 
 
     int count = 0;
     std::vector<std::map<std::string, int>> stringToCountMapVector;
@@ -56,6 +58,8 @@ class GenreWindow: public TDT4102::AnimationWindow
     //Call Back Funksjoner
     void DecrementCount();
     void IncrementCount();
+    void IncrementSlider(); 
+    void DecrementSlider();
     void RateCallback(); 
     
     //Constructors

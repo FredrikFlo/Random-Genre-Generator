@@ -40,6 +40,23 @@ void GenreWindow::DrawTable()
     }
 }
 
+void GenreWindow::DrawImage()
+{
+    this->draw_image({650, 175}, images.at(count), 350, 350);
+}
+
+void GenreWindow::UpdateDropDown()
+{
+    dropDownList.setOptions(genreVector.at(count)->sgNames);
+}
+
+void GenreWindow::DrawRatingText()
+{
+    this->draw_text({650+5+buttonWidth, 600+10}, std::format("{:.1f}", slider.getValue() / 10.0), TDT4102::Color::black, 30U, TDT4102::Font::arial_bold);
+}
+
+//Callbacks ----------------------
+
 void GenreWindow::DecrementCount()
 {
     count--;
@@ -58,16 +75,6 @@ void GenreWindow::IncrementCount()
     }
 }
 
-void GenreWindow::DrawImage()
-{
-    this->draw_image({650, 175}, images.at(count), 350, 350);
-}
-
-void GenreWindow::UpdateDropDown()
-{
-    dropDownList.setOptions(genreVector.at(count)->sgNames);
-}
-
 void GenreWindow::RateCallback()
 {
     int index = stringToCountMapVector.at(count).at(dropDownList.getSelectedValue());
@@ -76,9 +83,14 @@ void GenreWindow::RateCallback()
     slider.setValue(0); // Denne ble laget inne i Slider filen.
 }
 
-void GenreWindow::DrawRatingText()
+void GenreWindow::DecrementSlider()
 {
-    this->draw_text({650+5+buttonWidth, 600+10}, std::format("{:.1f}", slider.getValue() / 10.0), TDT4102::Color::black, 30U, TDT4102::Font::arial_bold);
+    slider.setValue(slider.getValue()-1);
+}
+
+void GenreWindow::IncrementSlider()
+{
+    slider.setValue(slider.getValue()+1);
 }
 
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
@@ -87,7 +99,9 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
                              rightButton({windowWidth-25-pageButtonWidth, 200}, pageButtonWidth, pageButtonHeight, ">"),
                              homeButton({25, 25}, 100, 100, "HOME"),
                              dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec),
-                             slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1) 
+                             slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1),
+                             plusButton({650 - 10 + buttonWidth, 570}, 50, 50, "+"),
+                             minusButton({650 - 10 + buttonWidth + 40, 570}, 50, 50, "-")
 {
     add(rateButton);
     add(leftButton);
@@ -95,6 +109,8 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     add(homeButton);
     add(dropDownList);  
     add(slider);
+    add(plusButton);
+    add(minusButton);
 
     for (auto g : genreVector)
     {
@@ -119,4 +135,6 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     leftButton.setCallback(std::bind(&GenreWindow::DecrementCount, this));
     rightButton.setCallback(std::bind(&GenreWindow::IncrementCount, this));
     rateButton.setCallback(std::bind(&GenreWindow::RateCallback, this));
+    plusButton.setCallback(std::bind(&GenreWindow::IncrementSlider, this));
+    minusButton.setCallback(std::bind(&GenreWindow::DecrementSlider, this));
 }
