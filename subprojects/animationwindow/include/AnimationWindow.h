@@ -55,14 +55,13 @@ class AnimationWindow {
 
     bool closeRequested = false;
 
-    std::vector<std::reference_wrapper<TDT4102::Widget>> widgets;
-
+    
     TDT4102::Color backgroundColor = TDT4102::Color::white;
 
     // SDL related context
     SDL_Window* windowHandle = nullptr;
     SDL_Renderer* rendererHandle = nullptr;
-
+    
     // Nuklear related context
     nk_context* context = nullptr;
     TDT4102::internal::FontCache fontCache;
@@ -73,11 +72,14 @@ class AnimationWindow {
     bool currentLeftMouseButtonState = false;
     bool currentRightMouseButtonState = false;
     float deltaMouseWheel = 0;
+    
+    protected:
+    std::vector<std::reference_wrapper<TDT4102::Widget>> widgets;
 
    public:
     explicit AnimationWindow(int x = 50, int y = 50, int width = 1024, int height = 768, const std::string& title = "Animation Window");
     ~AnimationWindow();
-
+    
     // When you have finished drawing a frame, call this function to display it (usually at the end of your main while loop)
     void next_frame();
 

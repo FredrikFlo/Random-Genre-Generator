@@ -24,5 +24,3 @@ bool SubGenre::HasRating() const // Henter private bool
 {
     return isRated; 
 }
-
-//Constructors 

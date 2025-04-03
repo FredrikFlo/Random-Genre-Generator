@@ -32,6 +32,12 @@ void GenreWindow::DrawTable()
     for(auto sg : genreVector.at(count)->subGenres)
     {
         // La til static_pointer_cast fordi det funket ikke ellers. Hvorfor? Vet ikke.
+        if (cellCount == dropDownList.getIndex())
+        {
+           this->draw_triangle({tableCorner.x - 10, tableCorner.y + CellHeight*(cellCount + 1) + 2 + CellHeight / 2},
+                               {tableCorner.x - 30, tableCorner.y + CellHeight*(cellCount + 1) + 2},
+                               {tableCorner.x - 30, tableCorner.y + CellHeight*(cellCount + 2) + 2}, TDT4102::Color::red);
+        }
         this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(cellCount + 1) + 2});
         cellCount++;
     }
@@ -50,6 +56,20 @@ void GenreWindow::UpdateDropDown()
 void GenreWindow::DrawRatingText()
 {
     this->draw_text({650+5+buttonWidth, 600+10}, std::format("{:.1f}", slider.getValue() / 10.0), TDT4102::Color::black, 30U, TDT4102::Font::arial_bold);
+}
+
+void GenreWindow::SetVisibility(bool isTableVisible)
+{
+    int tempIndex = 0; 
+    while(tempIndex < 8) // 8 er antall widgets i vanlig vinduet.
+    {
+        widgets.at(tempIndex).get().setVisible(isTableVisible);
+        tempIndex++;
+    }
+    while(tempIndex < widgets.size())
+    {
+        widgets.at(tempIndex).get().setVisible(isTableVisible);
+    }
 }
 
 //Callbacks ----------------------
@@ -102,6 +122,11 @@ void GenreWindow::DecrementDropdownIndex()
     dropDownList.setSelectedIndex(dropDownList.getIndex() - 1); 
 }
 
+void GenreWindow::homeCallback()
+{
+    SetHomeBool(true);
+}
+
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
                              rateButton({650, 600}, buttonWidth, buttonHeight, "RATE"),
                              leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
@@ -112,6 +137,7 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
                              plusButton({650 - 10 + buttonWidth+ 40, 570}, 50, 50, "+"),
                              minusButton({650 - 10 + buttonWidth, 570}, 50, 50, "-")
 {
+    //Tabell widgets
     add(rateButton);
     add(leftButton);
     add(rightButton);
@@ -119,7 +145,10 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     add(dropDownList);  
     add(slider);
     add(plusButton);
-    add(minusButton);
+    add(minusButton); // 7
+
+    //Home widgets
+
 
     for (auto g : genreVector)
     {
@@ -146,4 +175,5 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     rateButton.setCallback(std::bind(&GenreWindow::RateCallback, this));
     plusButton.setCallback(std::bind(&GenreWindow::IncrementSlider, this));
     minusButton.setCallback(std::bind(&GenreWindow::DecrementSlider, this));
+    homeButton.setCallback(std::bind(&GenreWindow::homeCallback, this)); 
 }

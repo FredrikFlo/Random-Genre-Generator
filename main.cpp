@@ -7,6 +7,8 @@
 #include <thread>
 #include <chrono>
 
+#include <windows.h>
+
 int main() 
 {
     /*
@@ -50,27 +52,41 @@ int main()
     //Funker IKKE!
     while(!win.should_close())
     {
-        win.DrawTable();
-        win.DrawImage();
-        win.UpdateDropDown();
-        win.DrawRatingText();
-        win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
-        if (win.is_key_down(KeyboardKey::LEFT))
+        if(!win.GetHomeBool())
         {
-            win.DecrementCount();      
+            win.DrawTable();
+            win.DrawImage();
+            win.UpdateDropDown();
+            win.DrawRatingText();
+            win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
+            if (win.is_key_down(KeyboardKey::LEFT))
+            {
+                win.DecrementCount();
+                Sleep(150);
+            }
+            if (win.is_key_down(KeyboardKey::RIGHT))
+            {
+                win.IncrementCount();
+                Sleep(150);
+            }
+            if (win.is_key_down(KeyboardKey::UP))
+            {
+                win.DecrementDropdownIndex();
+                Sleep(150);
+            }
+            if (win.is_key_down(KeyboardKey::DOWN))
+            {
+                win.IncrementDropdownIndex(); 
+                Sleep(150);
+            }
+
+            // Set Visibility
+            win.SetVisibility(true);
         }
-        if (win.is_key_down(KeyboardKey::RIGHT))
+        else
         {
-            win.IncrementCount();
-            // std::this_thread::sleep_for(std::chrono::milliseconds(100)); // ERROR
-        }
-        if (win.is_key_down(KeyboardKey::UP))
-        {
-            win.DecrementDropdownIndex();
-        }
-        if (win.is_key_down(KeyboardKey::DOWN))
-        {
-            win.IncrementDropdownIndex(); 
+            //Set Visibility 
+            win.SetVisibility(false);
         }
         win.next_frame();
     }

@@ -42,6 +42,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button minusButton; 
     TDT4102::DropdownList dropDownList;
     
+    bool homeWindow = false; 
     int count = 0;
     std::vector<std::map<std::string, int>> stringToCountMapVector;
     
@@ -54,7 +55,10 @@ class GenreWindow: public TDT4102::AnimationWindow
     void DrawRatingText();
     void UpdateDropDown();
     int GetCount() const {return count;}
-    
+    bool GetHomeBool() const {return homeWindow;}
+    void SetHomeBool(bool newBool) {homeWindow = newBool;}
+    void SetVisibility(bool isTableVisible); 
+
     //Call Back Funksjoner
     void DecrementCount();
     void IncrementCount();
@@ -63,6 +67,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     void RateCallback(); 
     void IncrementDropdownIndex();
     void DecrementDropdownIndex(); 
+    void homeCallback();
     
     //Constructors
     GenreWindow();
