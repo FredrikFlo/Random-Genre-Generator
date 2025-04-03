@@ -4,6 +4,9 @@
 #include "test.h"
 #include "GenreWindow.h"
 
+#include <thread>
+#include <chrono>
+
 int main() 
 {
     /*
@@ -54,11 +57,12 @@ int main()
         win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
         if (win.is_key_down(KeyboardKey::LEFT))
         {
-            win.DecrementCount();
+            win.DecrementCount();      
         }
         if (win.is_key_down(KeyboardKey::RIGHT))
         {
             win.IncrementCount();
+            // std::this_thread::sleep_for(std::chrono::milliseconds(100)); // ERROR
         }
         if (win.is_key_down(KeyboardKey::UP))
         {

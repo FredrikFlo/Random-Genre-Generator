@@ -61,6 +61,7 @@ void GenreWindow::DecrementCount()
     {
         count = genreVector.size() + count;
     }
+    dropDownList.setSelectedIndex(0);
 }
 
 void GenreWindow::IncrementCount()
@@ -70,6 +71,7 @@ void GenreWindow::IncrementCount()
     {
         count = count - genreVector.size();
     }
+    dropDownList.setSelectedIndex(0);
 }
 
 void GenreWindow::RateCallback()
@@ -107,8 +109,8 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
                              homeButton({25, 25}, 100, 100, "HOME"),
                              dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec),
                              slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1),
-                             plusButton({650 - 10 + buttonWidth, 570}, 50, 50, "+"),
-                             minusButton({650 - 10 + buttonWidth + 40, 570}, 50, 50, "-")
+                             plusButton({650 - 10 + buttonWidth+ 40, 570}, 50, 50, "+"),
+                             minusButton({650 - 10 + buttonWidth, 570}, 50, 50, "-")
 {
     add(rateButton);
     add(leftButton);
