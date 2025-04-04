@@ -131,7 +131,6 @@ SubGenre: Bachata  |  0  |  0
 SubGenre: Rumba  |  0  |  0
 SubGenre: Tango  |  0  |  0
 SubGenre: Latin Rap  |  0  |  0
-SubGenre: Latin Jazz  |  0  |  0
 Genre: Alternative
 SubGenre: Alternative Rock  |  0  |  0
 SubGenre: College Rock  |  0  |  0

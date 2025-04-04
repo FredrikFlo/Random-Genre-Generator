@@ -48,8 +48,10 @@ int main()
     // SaveToFile("test2.txt", genreVector);
 
     GenreWindow win{};
-
-    //Funker IKKE!
+    int angleOffset = 0; 
+    TDT4102::Point origin1 = {325, 300};
+    TDT4102::Point origin2 = {windowWidth - origin1.x, origin1.y};
+    
     while(!win.should_close())
     {
         if(!win.GetHomeBool())
@@ -79,6 +81,11 @@ int main()
                 win.IncrementDropdownIndex(); 
                 Sleep(150);
             }
+            if (win.is_key_down(KeyboardKey::ESCAPE))
+            {
+                win.homeCallback();
+                Sleep(300);
+            }
 
             // Set Visibility
             win.SetVisibility(true);
@@ -87,6 +94,15 @@ int main()
         {
             //Set Visibility 
             win.SetVisibility(false);
+            angleOffset = FixDegrees(angleOffset);
+            win.DrawWheel(angleOffset, origin1);
+            win.DrawWheel(angleOffset, origin2);
+            angleOffset -= 1; 
+            if (win.is_key_down(KeyboardKey::ESCAPE))
+            {
+                win.tableCallback();
+                Sleep(300);
+            }
         }
         win.next_frame();
     }

@@ -4,7 +4,7 @@ void SubGenre::SetSubGenreRating(double rating) // setter genreRating lik rating
 {
     this->genreRating = rating;
     this->isRated = true; 
-    if (int(rating) == 0)
+    if (rating < 0.09)
     {
         this->isRated = false; 
     }

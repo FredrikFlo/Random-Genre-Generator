@@ -68,8 +68,72 @@ void GenreWindow::SetVisibility(bool isTableVisible)
     }
     while(tempIndex < widgets.size())
     {
-        widgets.at(tempIndex).get().setVisible(isTableVisible);
+        widgets.at(tempIndex).get().setVisible(!isTableVisible);
+        tempIndex++;
     }
+}
+
+void GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin)
+{
+    // Regn ut antall subGenres (for weighting)
+    int subGenreAmount = 0;
+    double degrees = 0;
+    double totalDegrees = 0;
+    double startDegrees = 0; 
+    double endDegrees = 0; 
+    for (auto genrePtr : genreVector)
+    {
+        subGenreAmount += genrePtr->subGenres.size();
+    }
+
+    //Tegn antall hjul med degrees
+    for (int genreIndex = 0; genreIndex < genreVector.size(); genreIndex++)
+    {   
+        TDT4102::Color genreColor = intToColorMap[genreIndex % 5];
+        degrees = genreVector.at(genreIndex)->subGenres.size() / double(subGenreAmount) * 360; // La til double for å sikre presisjon
+        startDegrees = totalDegrees + angleOffset;
+        endDegrees = totalDegrees + angleOffset + degrees;
+
+        //Tegn ARC
+        if ((startDegrees < 360 && endDegrees < 360) || startDegrees >= 360 && endDegrees >= 360)
+        {
+            draw_arc(origin, 200, 200, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+            draw_arc(origin, 210, 210, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+            draw_arc(origin, 205, 205, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+        }
+        else if (endDegrees >= 360)
+        {
+            draw_arc(origin, 200, 200, 0, endDegrees - 360);
+            draw_arc(origin, 200, 200, startDegrees, 360);
+        }
+
+        //Tegn Radiusene
+        draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (startDegrees))), 
+                               int(origin.y - 200 * std::sin(pi / 180 * (startDegrees)))});
+        draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (endDegrees))), 
+                               int(origin.y - 200 * std::sin(pi / 180 * (endDegrees)))});
+        totalDegrees += degrees;
+
+        //Tegn Navnet
+        draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
+                   int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2)))},
+                   genreVector.at(genreIndex)->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial);
+        
+    } 
+}
+
+//Functionality 
+double FixDegrees(double angle)
+{
+    while(angle>=360)
+    {
+        angle-=360;
+    }
+    while(angle < 0)
+    {
+        angle += 360;
+    }
+    return angle;
 }
 
 //Callbacks ----------------------
@@ -127,6 +191,11 @@ void GenreWindow::homeCallback()
     SetHomeBool(true);
 }
 
+void GenreWindow::tableCallback()
+{
+    SetHomeBool(false);
+}
+
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
                              rateButton({650, 600}, buttonWidth, buttonHeight, "RATE"),
                              leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
@@ -135,7 +204,9 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
                              dropDownList({650, 25}, dropDownWidth, dropDownHeight, vec),
                              slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1),
                              plusButton({650 - 10 + buttonWidth+ 40, 570}, 50, 50, "+"),
-                             minusButton({650 - 10 + buttonWidth, 570}, 50, 50, "-")
+                             minusButton({650 - 10 + buttonWidth, 570}, 50, 50, "-"),
+                             tableButton({25, 25}, 100, 100, "TABLE"),
+                             spinButton({windowWidth/2 - buttonWidth/2, 600}, buttonWidth, buttonHeight, "SPIN!")
 {
     //Tabell widgets
     add(rateButton);
@@ -148,6 +219,8 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     add(minusButton); // 7
 
     //Home widgets
+    add(tableButton);
+    add(spinButton);
 
 
     for (auto g : genreVector)
@@ -169,11 +242,14 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
         stringToCountMapVector.emplace_back(tempMap);
     }
 
-    //Callbacks
+    //Callbacks table
     leftButton.setCallback(std::bind(&GenreWindow::DecrementCount, this));
     rightButton.setCallback(std::bind(&GenreWindow::IncrementCount, this));
     rateButton.setCallback(std::bind(&GenreWindow::RateCallback, this));
     plusButton.setCallback(std::bind(&GenreWindow::IncrementSlider, this));
     minusButton.setCallback(std::bind(&GenreWindow::DecrementSlider, this));
     homeButton.setCallback(std::bind(&GenreWindow::homeCallback, this)); 
+
+    //Callbacks Home
+    tableButton.setCallback(std::bind(&GenreWindow::tableCallback, this));
 }

@@ -11,8 +11,9 @@
 #include "Image.h"
 #include <format>
 #include <map>
+#include <cmath>
 
-
+static constexpr double pi = 3.14159265358979323846; 
 static constexpr int genreCellWidth = 350;
 static constexpr int ratingCellWidth = 100; 
 static constexpr int CellHeight = 33; 
@@ -37,14 +38,25 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button leftButton;
     TDT4102::Button rightButton;
     TDT4102::Button homeButton;
+    TDT4102::Button tableButton;
+    TDT4102::Button spinButton;
     TDT4102::Slider slider;
     TDT4102::Button plusButton; 
     TDT4102::Button minusButton; 
     TDT4102::DropdownList dropDownList;
     
+
     bool homeWindow = false; 
     int count = 0;
     std::vector<std::map<std::string, int>> stringToCountMapVector;
+    std::map<int, TDT4102::Color> intToColorMap
+    {
+        {0, TDT4102::Color::red},
+        {1, TDT4102::Color::goldenrod},
+        {2, TDT4102::Color::green},
+        {3, TDT4102::Color::blue},
+        {4, TDT4102::Color::purple}
+    };
     
     public:
     const std::vector<std::shared_ptr<Genre>> genreVector = LoadFromFile("test.txt");
@@ -58,7 +70,9 @@ class GenreWindow: public TDT4102::AnimationWindow
     bool GetHomeBool() const {return homeWindow;}
     void SetHomeBool(bool newBool) {homeWindow = newBool;}
     void SetVisibility(bool isTableVisible); 
-
+    void DrawWheel(double angleOffset, TDT4102::Point origin);
+   
+    
     //Call Back Funksjoner
     void DecrementCount();
     void IncrementCount();
@@ -68,7 +82,10 @@ class GenreWindow: public TDT4102::AnimationWindow
     void IncrementDropdownIndex();
     void DecrementDropdownIndex(); 
     void homeCallback();
+    void tableCallback();
     
     //Constructors
     GenreWindow();
 };
+
+double FixDegrees(double angle); //Functionality 
