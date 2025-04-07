@@ -1,13 +1,4 @@
-#include "Genre.h"
-#include "SubGenre.h"
-#include "FileHandling.h"
-#include "test.h"
-#include "GenreWindow.h"
-
-#include <thread>
-#include <chrono>
-
-#include <windows.h>
+#include "Functions.h"
 
 int main() 
 {
@@ -47,64 +38,6 @@ int main()
 
     // SaveToFile("test2.txt", genreVector);
 
-    GenreWindow win{};
-    int angleOffset = 0; 
-    TDT4102::Point origin1 = {325, 300};
-    TDT4102::Point origin2 = {windowWidth - origin1.x, origin1.y};
-    
-    while(!win.should_close())
-    {
-        if(!win.GetHomeBool())
-        {
-            win.DrawTable();
-            win.DrawImage();
-            win.UpdateDropDown();
-            win.DrawRatingText();
-            win.draw_text({1115, 620}, std::to_string((win.GetCount()+1)) + "/" + std::to_string(win.genreVector.size()));
-            if (win.is_key_down(KeyboardKey::LEFT))
-            {
-                win.DecrementCount();
-                Sleep(150);
-            }
-            if (win.is_key_down(KeyboardKey::RIGHT))
-            {
-                win.IncrementCount();
-                Sleep(150);
-            }
-            if (win.is_key_down(KeyboardKey::UP))
-            {
-                win.DecrementDropdownIndex();
-                Sleep(150);
-            }
-            if (win.is_key_down(KeyboardKey::DOWN))
-            {
-                win.IncrementDropdownIndex(); 
-                Sleep(150);
-            }
-            if (win.is_key_down(KeyboardKey::ESCAPE))
-            {
-                win.homeCallback();
-                Sleep(300);
-            }
-
-            // Set Visibility
-            win.SetVisibility(true);
-        }
-        else
-        {
-            //Set Visibility 
-            win.SetVisibility(false);
-            angleOffset = FixDegrees(angleOffset);
-            win.DrawWheel(angleOffset, origin1);
-            win.DrawWheel(angleOffset, origin2);
-            angleOffset -= 1; 
-            if (win.is_key_down(KeyboardKey::ESCAPE))
-            {
-                win.tableCallback();
-                Sleep(300);
-            }
-        }
-        win.next_frame();
-    }
+    Run();
     return 0;
 }

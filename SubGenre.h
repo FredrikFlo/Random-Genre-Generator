@@ -1,6 +1,6 @@
 #pragma once
-#include "Genre.h"
 
+#include "Genre.h"
 
 class SubGenre: public Genre
 {

@@ -29,6 +29,7 @@ exe = executable(
   'program',
   src,
 'FileHandling.cpp',
+'Functions.cpp',
 'Genre.cpp',
 'GenreWindow.cpp',
 'SubGenre.cpp',

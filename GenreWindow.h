@@ -9,6 +9,7 @@
 #include "widgets/TextInput.h"
 #include "widgets/Slider.h"
 #include "Image.h"
+
 #include <format>
 #include <map>
 #include <cmath>
@@ -28,7 +29,8 @@ static constexpr int dropDownHeight = 75;
 static constexpr int textInputHeight = 100;
 static constexpr int textInputWidth = 250;
 static TDT4102::Point tableCorner = {150, 25};
-
+static constexpr TDT4102::Point origin1 = {325, 300};
+static constexpr TDT4102::Point origin2 = {windowWidth - origin1.x, origin1.y};
 
 class GenreWindow: public TDT4102::AnimationWindow
 {
@@ -44,7 +46,6 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button plusButton; 
     TDT4102::Button minusButton; 
     TDT4102::DropdownList dropDownList;
-    
 
     bool homeWindow = false; 
     int count = 0;
@@ -70,9 +71,13 @@ class GenreWindow: public TDT4102::AnimationWindow
     bool GetHomeBool() const {return homeWindow;}
     void SetHomeBool(bool newBool) {homeWindow = newBool;}
     void SetVisibility(bool isTableVisible); 
-    void DrawWheel(double angleOffset, TDT4102::Point origin);
+
+    //Wheel stuff
+    std::string DrawWheel(double angleOffset, TDT4102::Point origin, bool spinSubGenreWheel);
+    void DrawRadii(TDT4102::Point &origin, double startDegrees, double endDegrees);
+    void DrawArc(double startDegrees, double endDegrees, const TDT4102::Point &origin, const TDT4102::Color &genreColor, 
+                 std::string &winner, int genreIndex, bool spinSubGenre);
    
-    
     //Call Back Funksjoner
     void DecrementCount();
     void IncrementCount();
@@ -83,6 +88,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     void DecrementDropdownIndex(); 
     void homeCallback();
     void tableCallback();
+    void SpinCallback();
     
     //Constructors
     GenreWindow();

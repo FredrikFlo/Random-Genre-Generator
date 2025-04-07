@@ -1,5 +1,5 @@
 #include "GenreWindow.h"
-
+#include "Functions.h"
 
 void GenreWindow::DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::Point& position)
 {
@@ -73,7 +73,7 @@ void GenreWindow::SetVisibility(bool isTableVisible)
     }
 }
 
-void GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin)
+std::string GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin, bool spinSubGenreWheel)
 {
     // Regn ut antall subGenres (for weighting)
     int subGenreAmount = 0;
@@ -81,53 +81,107 @@ void GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin)
     double totalDegrees = 0;
     double startDegrees = 0; 
     double endDegrees = 0; 
-    for (auto genrePtr : genreVector)
+    std::string winner;
+
+    if (!spinSubGenreWheel)
     {
-        subGenreAmount += genrePtr->subGenres.size();
-    }
-
-    //Tegn antall hjul med degrees
-    for (int genreIndex = 0; genreIndex < genreVector.size(); genreIndex++)
-    {   
-        TDT4102::Color genreColor = intToColorMap[genreIndex % 5];
-        degrees = genreVector.at(genreIndex)->subGenres.size() / double(subGenreAmount) * 360; // La til double for å sikre presisjon
-        startDegrees = totalDegrees + angleOffset;
-        endDegrees = totalDegrees + angleOffset + degrees;
-
-        //Tegn ARC
-        if ((startDegrees < 360 && endDegrees < 360) || startDegrees >= 360 && endDegrees >= 360)
+        for (auto genrePtr : genreVector)
         {
-            draw_arc(origin, 200, 200, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
-            draw_arc(origin, 210, 210, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
-            draw_arc(origin, 205, 205, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+            subGenreAmount += genrePtr->subGenres.size();
         }
-        else if (endDegrees >= 360)
-        {
-            draw_arc(origin, 200, 200, 0, endDegrees - 360);
-            draw_arc(origin, 200, 200, startDegrees, 360);
-        }
-
-        //Tegn Radiusene
-        draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (startDegrees))), 
-                               int(origin.y - 200 * std::sin(pi / 180 * (startDegrees)))});
-        draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (endDegrees))), 
-                               int(origin.y - 200 * std::sin(pi / 180 * (endDegrees)))});
-        totalDegrees += degrees;
-
-        //Tegn Navnet
-        draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
-                   int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2)))},
-                   genreVector.at(genreIndex)->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial);
         
-    } 
+        //Tegn antall hjul med degrees
+        for (int genreIndex = 0; genreIndex < genreVector.size(); genreIndex++)
+        {   
+            TDT4102::Color genreColor = intToColorMap[genreIndex % 5];
+            degrees = genreVector.at(genreIndex)->subGenres.size() / double(subGenreAmount) * 360; // La til double for å sikre presisjon
+            startDegrees = totalDegrees + angleOffset;
+            endDegrees = totalDegrees + angleOffset + degrees;
+            
+            //Tegn ARC
+            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, genreIndex, spinSubGenreWheel);
+            
+            //Tegn Radiusene
+            DrawRadii(origin, startDegrees, endDegrees);
+            
+            //Tegn Navnet
+            draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
+                int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))) - 10},
+                genreVector.at(genreIndex)->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial); 
+            
+            totalDegrees += degrees;
+        } 
+    }
+    else if (spinSubGenreWheel)
+    {
+        int subGenreIndex = 0;
+        for (auto subGenrePtr : genreVector.at(count)->subGenres)
+        {
+            // if (!subGenrePtr->HasRating())
+            // {
+            //     continue; 
+            // }
+            TDT4102::Color genreColor = intToColorMap[subGenreIndex % 5];
+            degrees = 360 / double(genreVector.at(count)->subGenres.size());
+            startDegrees = totalDegrees + angleOffset;
+            endDegrees = totalDegrees + angleOffset + degrees;
+
+            //Tegn ARC
+            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, subGenreIndex, spinSubGenreWheel);
+
+            //Tegn Radiusene
+            DrawRadii(origin, startDegrees, endDegrees);
+            
+            //Tegn Navnet
+            draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
+                int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))) - 10},
+                subGenrePtr->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial); 
+        
+            totalDegrees += degrees;
+            subGenreIndex++; 
+        }
+    }
+    // returner vinneren by name
+    return winner;
+}
+
+void GenreWindow::DrawRadii(TDT4102::Point &origin, double startDegrees, double endDegrees)
+{
+    draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (startDegrees))), 
+                       int(origin.y - 200 * std::sin(pi / 180 * (startDegrees)))});
+    draw_line(origin, {int(origin.x + 200 * std::cos(pi / 180 * (endDegrees))), 
+                       int(origin.y - 200 * std::sin(pi / 180 * (endDegrees)))});
+}
+
+void GenreWindow::DrawArc(double startDegrees, double endDegrees, const TDT4102::Point &origin, const TDT4102::Color &genreColor, std::string &winner, int genreIndex, bool spinSubGenre)
+{
+    if ((startDegrees < 360 && endDegrees < 360) || startDegrees >= 360 && endDegrees >= 360)
+    {       
+        draw_arc(origin, 200, 200, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+        draw_arc(origin, 210, 210, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+        draw_arc(origin, 205, 205, FixDegrees(startDegrees), FixDegrees(endDegrees), genreColor);
+    }
+    else if (endDegrees >= 360 && !spinSubGenre)
+    {
+        draw_arc(origin, 200, 200, 0, endDegrees - 360);
+        draw_arc(origin, 200, 200, startDegrees, 360);
+        winner = genreVector.at(genreIndex)->GetName();
+        count = genreIndex;
+    }
+    else if (endDegrees >= 360 && spinSubGenre)
+    {
+        draw_arc(origin, 200, 200, 0, endDegrees - 360);
+        draw_arc(origin, 200, 200, FixDegrees(startDegrees), 360);
+        winner = genreVector.at(count)->subGenres.at(genreIndex)->GetName();
+    }
 }
 
 //Functionality 
 double FixDegrees(double angle)
 {
-    while(angle>=360)
+    while(angle >= 360)
     {
-        angle-=360;
+        angle -= 360;
     }
     while(angle < 0)
     {
@@ -196,6 +250,52 @@ void GenreWindow::tableCallback()
     SetHomeBool(false);
 }
 
+void GenreWindow::SpinCallback()
+{
+    double angularVelocity = RandomDouble(4, 6);
+    double acceleration = RandomDouble(0.01, 0.03);
+    double angleOffset = RandomDouble(0, 360);
+    double temp = 0; 
+
+    std::string genreWinner;
+    std::string subGenreWinner;
+
+    while (angularVelocity >= 0)
+    {
+        angleOffset = FixDegrees(angleOffset);
+        DrawWheel(angleOffset, origin1, false);
+        angleOffset -= angularVelocity;
+        angularVelocity -= acceleration;
+        next_frame();
+    } 
+
+    genreWinner = DrawWheel(angleOffset, origin1, false);
+    temp = angleOffset;
+    
+    angularVelocity = RandomDouble(4, 6);
+    acceleration = RandomDouble(0.01, 0.03);
+    angleOffset = RandomDouble(0, 360);
+    
+    while (angularVelocity >= 0)
+    {
+        angleOffset = FixDegrees(angleOffset);
+        DrawWheel(temp, origin1, false);
+        DrawWheel(angleOffset, origin2, true);
+        angleOffset -= angularVelocity;
+        angularVelocity -= acceleration;
+        draw_text({origin1.x - 200, origin1.x + 200 + 20}, "Genre: " + genreWinner);
+        next_frame();
+    }
+
+    DrawWheel(temp, origin1, false);
+    subGenreWinner = DrawWheel(angleOffset, origin2, true);
+    draw_text({origin1.x - 200, origin1.x + 200 + 20}, "Genre: " + genreWinner);
+    draw_text({windowWidth - origin1.x - 200, origin1.x + 200 + 20}, "SubGenre: " + subGenreWinner);
+    next_frame();
+    Sleep(3000);
+    
+}
+
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
                              rateButton({650, 600}, buttonWidth, buttonHeight, "RATE"),
                              leftButton({25, 200}, pageButtonWidth, pageButtonHeight, "<"),
@@ -221,7 +321,6 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     //Home widgets
     add(tableButton);
     add(spinButton);
-
 
     for (auto g : genreVector)
     {
