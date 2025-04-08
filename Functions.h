@@ -9,4 +9,5 @@
 
 void Run();
 void CheckKeys(GenreWindow &win);
+double FixDegrees(double angle);
 double RandomDouble(double lower, double upper);// returns a random double between the given range 

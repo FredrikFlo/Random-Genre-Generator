@@ -57,3 +57,17 @@ bool Genre::HasRating() const // Sjekker om alle SubGenre is subGenres funker.
     }
     return temp; 
 }
+
+int Genre::GetUnratedSG() const
+{
+    int amount = 0; 
+    for (int i = 0;  i < subGenres.size(); i++)
+    {
+        if(!(subGenres.at(i)->HasRating()))
+        {
+            amount++;
+        }
+    }
+
+    return amount;
+}

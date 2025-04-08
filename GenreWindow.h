@@ -41,7 +41,6 @@ class GenreWindow: public TDT4102::AnimationWindow
     TDT4102::Button rightButton;
     TDT4102::Button homeButton;
     TDT4102::Button tableButton;
-    TDT4102::Button spinButton;
     TDT4102::Slider slider;
     TDT4102::Button plusButton; 
     TDT4102::Button minusButton; 
@@ -50,6 +49,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     bool homeWindow = false; 
     int count = 0;
     std::vector<std::map<std::string, int>> stringToCountMapVector;
+    std::map<std::string, int> stringToGenreCountMap;
     std::map<int, TDT4102::Color> intToColorMap
     {
         {0, TDT4102::Color::red},
@@ -60,7 +60,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     };
     
     public:
-    const std::vector<std::shared_ptr<Genre>> genreVector = LoadFromFile("test.txt");
+    const std::vector<std::shared_ptr<Genre>> genreVector = LoadFromFile("GenreData.txt");
     std::vector<TDT4102::Image> images{};
     void DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::Point& position); //Bør funke for både en Genre og SubGenre pointer
     void DrawTable(); //Vil BARE funke for Genre pointer
@@ -69,6 +69,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     void UpdateDropDown();
     int GetCount() const {return count;}
     bool GetHomeBool() const {return homeWindow;}
+    int GetTotalUnrated() const;
     void SetHomeBool(bool newBool) {homeWindow = newBool;}
     void SetVisibility(bool isTableVisible); 
 

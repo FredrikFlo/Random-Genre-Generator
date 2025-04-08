@@ -19,6 +19,7 @@ public:
 std::vector<std::shared_ptr<SubGenre>> subGenres; // vector med SubGenre
 std::vector<std::string> sgNames;
 // public member functions
+int GetUnratedSG() const;
 double GetRating() const;
 std::string GetName() const;
 virtual void SetGenreRating(); //Setter genreRating lik snittet av flere SubGenre og deres genreRating

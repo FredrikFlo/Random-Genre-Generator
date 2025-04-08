@@ -84,7 +84,6 @@ std::vector<std::shared_ptr<Genre>> LoadFromFile(const std::string& filename)
             throw std::logic_error("Beginning of line does not start with Genre: or SubGenre: ");
         }
     }
-
     return genreVector; 
 }
 

@@ -22,11 +22,11 @@ void Run()
         }
         else
         {
-            //Set Visibility 
-            win.SetVisibility(false);
+            win.SetVisibility(false); //Set Visibility 
             angleOffset = FixDegrees(angleOffset); //For å holde angleOffset mellom 0 og 360
             win.DrawWheel(angleOffset, origin1, false);
             win.DrawWheel(angleOffset, origin2, true);
+            win.draw_text({windowWidth/2 - 150, 650}, "PRESS 'SPACE' TO SPIN", TDT4102::Color::red, 30U, TDT4102::Font::arial_bold_italic);
             angleOffset -= 1; 
             if (win.is_key_down(KeyboardKey::SPACE))
             {
@@ -40,6 +40,21 @@ void Run()
         }
         win.next_frame();
     }
+    SaveToFile("GenreData.txt", win.genreVector);
+}
+
+//Functionality 
+double FixDegrees(double angle)
+{
+    while(angle >= 360)
+    {
+        angle -= 360;
+    }
+    while(angle < 0)
+    {
+        angle += 360;
+    }
+    return angle;
 }
 
 void CheckKeys(GenreWindow &win)
@@ -67,6 +82,11 @@ void CheckKeys(GenreWindow &win)
     if (win.is_key_down(KeyboardKey::ESCAPE))
     {
         win.homeCallback();
+        Sleep(300);
+    }
+    if (win.is_key_down(KeyboardKey::SPACE))
+    {
+        win.RateCallback();
         Sleep(300);
     }
 }

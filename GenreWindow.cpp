@@ -1,6 +1,16 @@
 #include "GenreWindow.h"
 #include "Functions.h"
 
+int GenreWindow::GetTotalUnrated() const
+{
+    int amount = 0;
+    for(auto genrePtr : genreVector)
+    {
+        amount += genrePtr->GetUnratedSG();
+    }
+    return amount; 
+}
+
 void GenreWindow::DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::Point& position)
 {
     //Tegne cellen til hvor navnet befinner seg
@@ -73,6 +83,8 @@ void GenreWindow::SetVisibility(bool isTableVisible)
     }
 }
 
+
+// WHEELL
 std::string GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin, bool spinSubGenreWheel)
 {
     // Regn ut antall subGenres (for weighting)
@@ -85,29 +97,31 @@ std::string GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin, bo
 
     if (!spinSubGenreWheel)
     {
-        for (auto genrePtr : genreVector)
-        {
-            subGenreAmount += genrePtr->subGenres.size();
-        }
-        
         //Tegn antall hjul med degrees
         for (int genreIndex = 0; genreIndex < genreVector.size(); genreIndex++)
         {   
+            if(GetTotalUnrated() == 0)
+            {
+                draw_text({windowWidth/2 , windowHeight/2}, "No more genres to rate :(", TDT4102::Color::red, 30U, TDT4102::Font::arial_bold_italic);
+                return ""; 
+            }
+            if(genreVector.at(genreIndex)->GetUnratedSG() == 0)
+            {
+                continue;
+            }
             TDT4102::Color genreColor = intToColorMap[genreIndex % 5];
-            degrees = genreVector.at(genreIndex)->subGenres.size() / double(subGenreAmount) * 360; // La til double for å sikre presisjon
+            degrees = genreVector.at(genreIndex)->GetUnratedSG() / double(GetTotalUnrated()) * 360; // La til double for å sikre presisjon
             startDegrees = totalDegrees + angleOffset;
             endDegrees = totalDegrees + angleOffset + degrees;
             
-            //Tegn ARC
-            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, genreIndex, spinSubGenreWheel);
-            
-            //Tegn Radiusene
-            DrawRadii(origin, startDegrees, endDegrees);
-            
-            //Tegn Navnet
-            draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
+            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, genreIndex, spinSubGenreWheel); //Tegn ARC
+            DrawRadii(origin, startDegrees, endDegrees); //Tegn Radiusene
+            draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))),  //Tegn Navnet
                 int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))) - 10},
                 genreVector.at(genreIndex)->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial); 
+            draw_triangle({origin.x + 190, origin.y},
+                          {origin.x + 190 + 30, origin.y + 5},
+                          {origin.x + 190 + 30, origin.y - 5}, TDT4102::Color::red);
             
             totalDegrees += degrees;
         } 
@@ -117,25 +131,23 @@ std::string GenreWindow::DrawWheel(double angleOffset, TDT4102::Point origin, bo
         int subGenreIndex = 0;
         for (auto subGenrePtr : genreVector.at(count)->subGenres)
         {
-            // if (!subGenrePtr->HasRating())
-            // {
-            //     continue; 
-            // }
+            if (subGenrePtr->HasRating())
+            {
+                continue; 
+            }
             TDT4102::Color genreColor = intToColorMap[subGenreIndex % 5];
-            degrees = 360 / double(genreVector.at(count)->subGenres.size());
+            degrees = 360 / double(genreVector.at(count)->GetUnratedSG());
             startDegrees = totalDegrees + angleOffset;
             endDegrees = totalDegrees + angleOffset + degrees;
 
-            //Tegn ARC
-            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, subGenreIndex, spinSubGenreWheel);
-
-            //Tegn Radiusene
-            DrawRadii(origin, startDegrees, endDegrees);
-            
-            //Tegn Navnet
+            DrawArc(startDegrees, endDegrees, origin, genreColor, winner, subGenreIndex, spinSubGenreWheel);  //Tegn Radiusene
+            DrawRadii(origin, startDegrees, endDegrees); //Tegn Radiusene
             draw_text({int(origin.x + 210 * std::cos(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))), 
                 int(origin.y - 210 * std::sin(pi / 180 * (startDegrees + (endDegrees - startDegrees) / 2))) - 10},
-                subGenrePtr->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial); 
+                subGenrePtr->GetName(), TDT4102::Color::black, 20U, TDT4102::Font::arial); //Tegn Navnet 
+            draw_triangle({origin.x + 190, origin.y},
+                          {origin.x + 190 + 30, origin.y + 5},
+                          {origin.x + 190 + 30, origin.y - 5}, TDT4102::Color::red);
         
             totalDegrees += degrees;
             subGenreIndex++; 
@@ -166,7 +178,6 @@ void GenreWindow::DrawArc(double startDegrees, double endDegrees, const TDT4102:
         draw_arc(origin, 200, 200, 0, endDegrees - 360);
         draw_arc(origin, 200, 200, startDegrees, 360);
         winner = genreVector.at(genreIndex)->GetName();
-        count = genreIndex;
     }
     else if (endDegrees >= 360 && spinSubGenre)
     {
@@ -174,20 +185,6 @@ void GenreWindow::DrawArc(double startDegrees, double endDegrees, const TDT4102:
         draw_arc(origin, 200, 200, FixDegrees(startDegrees), 360);
         winner = genreVector.at(count)->subGenres.at(genreIndex)->GetName();
     }
-}
-
-//Functionality 
-double FixDegrees(double angle)
-{
-    while(angle >= 360)
-    {
-        angle -= 360;
-    }
-    while(angle < 0)
-    {
-        angle += 360;
-    }
-    return angle;
 }
 
 //Callbacks ----------------------
@@ -243,11 +240,14 @@ void GenreWindow::DecrementDropdownIndex()
 void GenreWindow::homeCallback()
 {
     SetHomeBool(true);
+    Sleep(100);
 }
 
 void GenreWindow::tableCallback()
 {
     SetHomeBool(false);
+    Sleep(100);
+    dropDownList.setSelectedIndex(0);
 }
 
 void GenreWindow::SpinCallback()
@@ -270,8 +270,9 @@ void GenreWindow::SpinCallback()
     } 
 
     genreWinner = DrawWheel(angleOffset, origin1, false);
-    temp = angleOffset;
     
+    count = stringToGenreCountMap[genreWinner];
+    temp = angleOffset;
     angularVelocity = RandomDouble(4, 6);
     acceleration = RandomDouble(0.01, 0.03);
     angleOffset = RandomDouble(0, 360);
@@ -293,7 +294,6 @@ void GenreWindow::SpinCallback()
     draw_text({windowWidth - origin1.x - 200, origin1.x + 200 + 20}, "SubGenre: " + subGenreWinner);
     next_frame();
     Sleep(3000);
-    
 }
 
 GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, windowHeight, "Random Genre Generator"}, 
@@ -305,8 +305,7 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
                              slider({650, 570}, buttonWidth, 30, 0, 100, 0, 1),
                              plusButton({650 - 10 + buttonWidth+ 40, 570}, 50, 50, "+"),
                              minusButton({650 - 10 + buttonWidth, 570}, 50, 50, "-"),
-                             tableButton({25, 25}, 100, 100, "TABLE"),
-                             spinButton({windowWidth/2 - buttonWidth/2, 600}, buttonWidth, buttonHeight, "SPIN!")
+                             tableButton({25, 25}, 100, 100, "TABLE")
 {
     //Tabell widgets
     add(rateButton);
@@ -320,12 +319,16 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
 
     //Home widgets
     add(tableButton);
-    add(spinButton);
 
+    int genrePlacement = 0;
     for (auto g : genreVector)
     {
-        //Lager en liste med bilder
+        //Lager en liste med bilder for hver sjanger
         images.emplace_back(g->GetName() + ".jpg");
+
+        //Lager en map fra navne til en hoved sjanger til indeksen
+        stringToGenreCountMap[g->GetName()] = genrePlacement;
+        genrePlacement++;
 
         //Lager en vector av flere maps for indexen til hver instanse av SubGenre
         std::map<std::string, int> tempMap;
@@ -348,7 +351,7 @@ GenreWindow::GenreWindow() : TDT4102::AnimationWindow{100, 100, windowWidth, win
     plusButton.setCallback(std::bind(&GenreWindow::IncrementSlider, this));
     minusButton.setCallback(std::bind(&GenreWindow::DecrementSlider, this));
     homeButton.setCallback(std::bind(&GenreWindow::homeCallback, this)); 
-
+    
     //Callbacks Home
     tableButton.setCallback(std::bind(&GenreWindow::tableCallback, this));
 }
