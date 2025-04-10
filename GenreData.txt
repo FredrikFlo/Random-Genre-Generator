@@ -1,147 +1,194 @@
 Genre: Pop
-SubGenre: Baroque Pop | 6.3 | 1
-SubGenre: Country Pop | 2.9 | 1
-SubGenre: Cowboy Pop | 0 | 0
-SubGenre: Dancehall Pop | 0 | 0
-SubGenre: Electro Pop | 0 | 0
-SubGenre: Emo Pop | 0 | 0
-SubGenre: Folk-Pop | 0 | 0
-SubGenre: Indie Pop | 0 | 0
-SubGenre: Pop Punk | 0 | 0
-SubGenre: Pop Rap | 0 | 0
+SubGenre: Adult Contemporary | 0 | 0
 SubGenre: Ambient Pop | 0 | 0
-SubGenre: Pop Rock | 0 | 0
+SubGenre: Baroque Pop | 0 | 0
+SubGenre: Ballad | 0 | 0
+SubGenre: Chinese Pop | 0 | 0
+SubGenre: Folk-Pop | 0 | 0
+SubGenre: Indian Pop | 0 | 0
+SubGenre: Indie Pop | 0 | 0
+SubGenre: K Pop | 0 | 0
+SubGenre: Pop Punk | 0 | 0
 SubGenre: Power Pop | 0 | 0
 SubGenre: Psychedelic Pop | 0 | 0
 SubGenre: Space Age Pop | 0 | 0
+SubGenre: Sunshine Pop | 0 | 0
 SubGenre: Worldbeat | 0 | 0
-SubGenre: K Pop | 0 | 0
 Genre: Rock
-SubGenre: Adult Alternative | 0 | 0
-SubGenre: American  Rock | 0 | 0
 SubGenre: Arena Rock | 0 | 0
 SubGenre: Blues-Rock | 0 | 0
 SubGenre: British Invasion | 0 | 0
-SubGenre: Death Metal/Black Metal | 0 | 0
+SubGenre: Black Metal | 0 | 0
+SubGenre: Death Metal | 0 | 0
 SubGenre: Glam Rock | 0 | 0
+SubGenre: Garage Rock | 0 | 0
+SubGenre: Hard Rock | 0 | 0
 SubGenre: Hair Metal | 0 | 0
-SubGenre: Hard Rock ! Metal | 0 | 0
 SubGenre: Jam Bands | 0 | 0
-SubGenre: Prog-Rock/Art Rock | 0 | 0
-SubGenre: Psychedelic | 0 | 0
+SubGenre: Kraut Rock | 0 | 0
+SubGenre: Lo-Fi Rock | 0 | 0
+SubGenre: New Wave | 0 | 0
+SubGenre: Pop Rock | 0 | 0
+SubGenre: Prog-Rock / Art Rock | 0 | 0
+SubGenre: Psychedelic Rock | 0 | 0
+SubGenre: Post Rock | 0 | 0
+SubGenre: Power Metal | 0 | 0
+SubGenre: Progressive Metal | 0 | 0
+SubGenre: Punk | 0 | 0
 SubGenre: Rock & Roll | 0 | 0
 SubGenre: Rockabilly | 0 | 0
 SubGenre: Roots Rock | 0 | 0
 SubGenre: Singer/Songwriter | 0 | 0
-SubGenre: Classic Rock | 0 | 0
 SubGenre: Southern Rock | 0 | 0
-Genre: Hip-Hop
+SubGenre: Soft Rock | 0 | 0
+SubGenre: Surf Rock | 0 | 0
+SubGenre: Symphonic Rock | 0 | 0
+Genre: Rap
 SubGenre: Alternative Rap | 0 | 0
 SubGenre: Bounce | 0 | 0
+SubGenre: Cloud Rap | 0 | 0
 SubGenre: Dirty South | 0 | 0
+SubGenre: Drill | 0 | 0
 SubGenre: East Coast Rap | 0 | 0
+SubGenre: Future Beats | 0 | 0
 SubGenre: Gangsta Rap | 0 | 0
 SubGenre: Hardcore Rap | 0 | 0
 SubGenre: Hip-Hop | 0 | 0
+SubGenre: Lo-Fi Beats | 0 | 0
+SubGenre: Mumble Rap | 0 | 0
 SubGenre: Old School Rap | 0 | 0
+SubGenre: Pop Rap | 0 | 0
+SubGenre: Trap | 0 | 0
 SubGenre: Underground Rap | 0 | 0
 SubGenre: West Coast Rap | 0 | 0
-SubGenre: Mumble Rap | 0 | 0
+SubGenre: Jazz Rap | 0 | 0
 Genre: R&B
+SubGenre: Boogie | 0 | 0
 SubGenre: Contemporary R&B | 0 | 0
 SubGenre: Disco | 0 | 0
 SubGenre: Doo Wop | 0 | 0
 SubGenre: Funk | 0 | 0
+SubGenre: Indie Soul | 0 | 0
 SubGenre: Motown | 0 | 0
+SubGenre: New Jack Swing | 0 | 0
 SubGenre: Neo-Soul | 0 | 0
+SubGenre: Psychadelic Funk | 0 | 0
+SubGenre: Psychadelic Soul | 0 | 0
 SubGenre: Quiet Storm | 0 | 0
+SubGenre: Rythm and Blues | 0 | 0
 SubGenre: Soul | 0 | 0
+SubGenre: Synth Funk | 0 | 0
 Genre: Reggae
+SubGenre: Contemporary  Reggae | 0 | 0
 SubGenre: Dancehall | 0 | 0
 SubGenre: Dub | 0 | 0
-SubGenre: Roots Reggae | 0 | 0
-SubGenre: Ska | 0 | 0
-SubGenre: Mento | 0 | 0
-SubGenre: Reggaestep | 0 | 0
 SubGenre: Gospel Reggae | 0 | 0
-SubGenre: Contemporary  Reggae | 0 | 0
+SubGenre: Mento | 0 | 0
+SubGenre: Roots Reggae | 0 | 0
+SubGenre: Reggaestep | 0 | 0
+SubGenre: Reggaeton | 0 | 0
+SubGenre: Ska | 0 | 0
 Genre: Country
-SubGenre: Alternative Country | 3.8 | 1
+SubGenre: Alternative Country | 0 | 0
 SubGenre: Americana | 0 | 0
 SubGenre: Bluegrass | 0 | 0
-SubGenre: Contemporary Bluegrass | 0 | 0
 SubGenre: Contemporary Country | 0 | 0
 SubGenre: Country Gospel | 0 | 0
 SubGenre: Honky Tonk | 0 | 0
 SubGenre: Outlaw Country | 0 | 0
-SubGenre: Traditional Bluegrass | 0 | 0
-SubGenre: Traditional Country | 0 | 0
 SubGenre: Urban Cowboy | 0 | 0
+SubGenre: Western | 0 | 0
 Genre: Jazz
 SubGenre: Acid Jazz | 0 | 0
+SubGenre: Afro-Cuban | 0 | 0
 SubGenre: Avant-Garde Jazz | 0 | 0
 SubGenre: Big Band | 0 | 0
 SubGenre: Blue Note | 0 | 0
-SubGenre: Contemporary Jazz | 0 | 0
-SubGenre: Easy Listening | 0 | 0
+SubGenre: Bebop | 0 | 0
 SubGenre: Crossover Jazz | 0 | 0
+SubGenre: Contemporary Jazz | 0 | 0
 SubGenre: Dixieland | 0 | 0
+SubGenre: Easy Listening | 0 | 0
 SubGenre: Ethio-Jazz Fusion | 0 | 0
 SubGenre: Hard Bop | 0 | 0
+SubGenre: Jap-Jazz Fusion | 0 | 0
+SubGenre: Jazz-Funk | 0 | 0
+SubGenre: Jazz Fusion | 0 | 0
+SubGenre: Jazz Manouche | 0 | 0
 SubGenre: Mainstream Jazz | 0 | 0
+SubGenre: Modal Jazz | 0 | 0
+SubGenre: Post Bop | 0 | 0
 SubGenre: Ragtime | 0 | 0
 SubGenre: Smooth Jazz | 0 | 0
+SubGenre: Senegalese Jazz | 0 | 0
+SubGenre: Swing | 0 | 0
 SubGenre: Trad Jazz | 0 | 0
-SubGenre: Jazz Fusion | 0 | 0
 Genre: Blues
 SubGenre: Acoustic Blues | 0 | 0
+SubGenre: Boogie-Woogie | 0 | 0
 SubGenre: Chicago Blues | 0 | 0
 SubGenre: Classic Blues | 0 | 0
 SubGenre: Contemporary Blues | 0 | 0
 SubGenre: Country Blues | 0 | 0
 SubGenre: Delta Blues | 0 | 0
 SubGenre: Electric Blues | 0 | 0
+SubGenre: Harmonica Blues | 0 | 0
+SubGenre: Louisiana Blues | 0 | 0
+SubGenre: Texas Blues | 0 | 0
 Genre: Electronic
 SubGenre: Breakbeat | 0 | 0
+SubGenre: ChillWave | 0 | 0
 SubGenre: Dubstep | 0 | 0
-SubGenre: Exercise | 0 | 0
-SubGenre: Garage | 0 | 0
+SubGenre: Dance | 0 | 0
+SubGenre: Drum N Bass | 0 | 0
+SubGenre: Eurodance | 0 | 0
+SubGenre: EDM | 0 | 0
+SubGenre: EDM | 0 | 0
+SubGenre: Electro Pop | 0 | 0
+SubGenre: Glitch | 0 | 0
 SubGenre: Hardcore | 0 | 0
-SubGenre: Hard Dance | 0 | 0
-SubGenre: Hi-NRG / Eurodance | 0 | 0
 SubGenre: House | 0 | 0
 SubGenre: Jackin House | 0 | 0
 SubGenre: Jungle | 0 | 0
-SubGenre: Drum N Bass | 0 | 0
+SubGenre: Kuduro | 0 | 0
+SubGenre: Kwaito | 0 | 0
+SubGenre: Moombahton | 0 | 0
+SubGenre: Synthwave | 0 | 0
+SubGenre: Trip Hop | 0 | 0
 SubGenre: Techno | 0 | 0
 SubGenre: Trance | 0 | 0
+SubGenre: UK Garage | 0 | 0
 Genre: Latino
 SubGenre: Alternativo & Rock Latino | 0 | 0
 SubGenre: Baladas y Boleros | 0 | 0
 SubGenre: Brazilian | 0 | 0
+SubGenre: Bossa Nova | 0 | 0
+SubGenre: Bachata | 0 | 0
+SubGenre: Charanga | 0 | 0
 SubGenre: Contemporary Latin | 0 | 0
+SubGenre: Choro | 0 | 0
+SubGenre: Columbian | 0 | 0
+SubGenre: Cuban | 0 | 0
+SubGenre: Cumbia | 0 | 0
+SubGenre: Forró | 0 | 0
+SubGenre: Funk Carioca | 0 | 0
+SubGenre: Guaguanco | 0 | 0
+SubGenre: Guaracha | 0 | 0
+SubGenre: Guarani | 0 | 0
+SubGenre: Mambo | 0 | 0
+SubGenre: Merengue | 0 | 0
+SubGenre: MPB | 0 | 0
+SubGenre: Milonga | 0 | 0
 SubGenre: Latin Jazz | 0 | 0
+SubGenre: Latin Rap | 0 | 0
+SubGenre: Pagode | 0 | 0
+SubGenre: Puerto Rico | 0 | 0
 SubGenre: Pop Latino | 0 | 0
 SubGenre: Raíces | 0 | 0
-SubGenre: Reggaeton y Hip-Hop | 0 | 0
 SubGenre: Regional Mexicano | 0 | 0
-SubGenre: Salsa | 0 | 0
-SubGenre: Tropical | 0 | 0
-SubGenre: Bachata | 0 | 0
 SubGenre: Rumba | 0 | 0
+SubGenre: Salsa | 0 | 0
+SubGenre: Tamba | 0 | 0
+SubGenre: Tropical | 0 | 0
 SubGenre: Tango | 0 | 0
-SubGenre: Latin Rap | 0 | 0
-Genre: Alternative
-SubGenre: Alternative Rock | 0 | 0
-SubGenre: College Rock | 0 | 0
-SubGenre: Experimental Rock | 0 | 0
-SubGenre: Goth Rock | 0 | 0
-SubGenre: Grunge | 0 | 0
-SubGenre: Hardcore Punk | 0 | 0
-SubGenre: Hard Rock | 0 | 0
-SubGenre: Indie Rock | 0 | 0
-SubGenre: New Wave | 0 | 0
-SubGenre: Progressive Rock | 0 | 0
-SubGenre: Punk | 0 | 0
-SubGenre: Shoegaze | 0 | 0
-SubGenre: Steampunk | 0 | 0
+SubGenre: Urban Latino | 0 | 0
