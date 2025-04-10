@@ -5,28 +5,17 @@ Dette prosjeket var et forsøk på å lage et program som lar brukeren velge til
 Litt oppsummert om de ulike funksjone i programmet
 
 	=> Kan legge til og fjerne rating for hver undersjanger
- 
  	=> Hovedsjangere har ratingen automatisk oppdatert
-	
 	=> Grensesnittet er brukbart med både knapper på skjermen samt taster på PC-en
-
  		- Space spinner hjulet
-	 
 	 	- Escape skifter skjermer
-	 
 	 	- pil tastene skifter sjanger / under sjanger
-	 
 	 	- Enter lagrer ratingen
-	 
- 	=> Det blir vist bilder av noen kjente artister for hver sjanger (untatt Alternative og Country, der valgte jeg to tilfeldige folk som så litt passende)
-	
+ 	=> Det blir vist bilder av noen kjente artister for hver sjanger (untatt Country, der valgte jeg noen tilfeldig)
 	=> Hjulet spinner kun for undersjangerne som ikke har ratinger
- 
 
 Ting som skal / bør bli laget 
 
-	=> Mulighet for å legge / fjerne nye sjangere fra UI-en (bør)
- 
- 	=> Når alle undersjangerne har blitt ratet så bør det være mulig å spinne hjulet med lik sannsynlighet på alle eller vekted basert på ratingene (skal)
-	
-	=> Mulighet for mer enn 19 undersjangere på en sjanger  (flere sider for en sjanger)(skal)
+	=> Mulighet for å legge / fjerne nye sjangere fra UI-en
+ 	=> Når alle undersjangerne har blitt ratet så bør det være mulig å spinne hjulet med lik sannsynlighet på alle eller vekted basert på ratingene
+	=> Mulighet for mer enn 19 undersjangere på en sjanger  (flere sider for en sjanger)
