@@ -26,6 +26,7 @@ SubGenre: Hard Rock | 0 | 0
 SubGenre: Hair Metal | 0 | 0
 SubGenre: Jam Bands | 0 | 0
 SubGenre: Kraut Rock | 0 | 0
+SubGenre: Math Rock | 0 | 0
 SubGenre: Lo-Fi Rock | 0 | 0
 SubGenre: New Wave | 0 | 0
 SubGenre: Pop Rock | 0 | 0

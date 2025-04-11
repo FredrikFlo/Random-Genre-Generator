@@ -6,7 +6,7 @@ int GenreWindow::GetTotalUnrated() const
     int amount = 0;
     for(auto genrePtr : genreVector)
     {
-        amount += genrePtr->GetUnratedSG(); // Antal unrated i genre og plusser dem sammen 
+        amount += genrePtr->GetUnratedSG(); // Antall unrated i genre og plusser dem sammen 
     }
     return amount; 
 }
