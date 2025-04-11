@@ -34,24 +34,29 @@ void GenreWindow::DrawGenreCell(std::shared_ptr<Genre> genrePtr, const TDT4102::
     // tenger ratingen som en tekst
 }
 
-void GenreWindow::DrawTable()
+void GenreWindow::DrawTableOverflow()
 {
-    genreVector.at(count)->SetGenreRating(); // Oppdaterer hovedsjangeren sin rating hver gang den blir denne funskjonen blir kalt
-    this->DrawGenreCell(genreVector.at(count), tableCorner); // caller på cellen funksjonen for et Genre objekt
+    genreVector.at(count)->SetGenreRating(); // Oppdaterer ratingen vi har blitt gitt
+    this->DrawGenreCell(genreVector.at(count), tableCorner); // tegner hoved sjangeren sin cellet
 
-    int cellCount = 0; // Logikk for å tegne en trekant som peker på riktig boks
-    for(auto sg : genreVector.at(count)->subGenres) // itererer gjennom alle subGenres i genreVectoren 
+    int cellCount = 0; // holder orden på hvilken cellet vi undersøker (IKKE lik indeksen til en vektor)
+    for(int indexCount = 0; indexCount < genreVector.at(count)->subGenres.size(); indexCount++)
     {
+        if (indexCount <= tableOverflowCount * 19 - 1 || indexCount > (tableOverflowCount + 1) * 19 - 1) // lager bare 19 celler
+        {
+            continue;
+        }
+
         if (cellCount == dropDownList.getIndex()) // sjekker om cellCount er lik den riktig dropDownList indeksen
         {
             this->draw_triangle({tableCorner.x - 10, tableCorner.y + CellHeight*(cellCount + 1) + 2 + CellHeight / 2},
             {tableCorner.x - 30, tableCorner.y + CellHeight*(cellCount + 1) + 2},
             {tableCorner.x - 30, tableCorner.y + CellHeight*(cellCount + 2) + 2}, TDT4102::Color::red); // Tegner trekanten som peker på riktig boks
         }
-        // La til static_pointer_cast fordi det funket ikke ellers. Hvorfor? Vet ikke.
-        this->DrawGenreCell(std::static_pointer_cast<Genre>(sg), {tableCorner.x, tableCorner.y + CellHeight*(cellCount + 1) + 2}); 
-        // Denne tegner da hver sjanger som en boks
-        cellCount++; // denne øker cellCount for å sjekke at den riktige kommer gjennom.
+
+        this->DrawGenreCell(std::static_pointer_cast<Genre>(genreVector.at(count)->subGenres.at(indexCount)), // tegner cellen
+                            {tableCorner.x, tableCorner.y + CellHeight*(cellCount + 1) + 2}); 
+        cellCount++; // går til neste cellet
     }
 }
 
@@ -199,22 +204,46 @@ void GenreWindow::DrawArc(double startDegrees, double endDegrees, const TDT4102:
 
 void GenreWindow::DecrementCount()
 {
-    count--;
-    if (count < 0)
+    if (tableOverflowCount > 0) // hvis vi er i en del tabbel av en sjanger så ønsker vi å gå til den tidligere del tabellen.
     {
-        count = genreVector.size() + count; //sørger for at count ikke blir mindre en null
+        tableOverflowCount--;
     }
-    dropDownList.setSelectedIndex(0); // reseter dropDownList sin indeks for å ikke få out of range errors
+    else 
+    { 
+        int tableOverflowNextValue = 0;
+        if (count - 1 < 0)
+        {
+            count = genreVector.size() - count - 1; //sørger for at count ikke blir mindre en null
+        }
+        else
+        {
+            count--;
+        }
+        while(genreVector.at(count)->subGenres.size() > 19 * (tableOverflowNextValue + 1))
+        {
+            tableOverflowNextValue ++; // viser den siste siden i den sjangeren
+        }
+        dropDownList.setSelectedIndex(0); // reseter dropDownList sin indeks for å ikke få out of range errors
+        tableOverflowCount = tableOverflowNextValue; 
+    }
 }
 
 void GenreWindow::IncrementCount()
-{
-    count++; 
-    if(count >= genreVector.size())
+{  
+    if (genreVector.at(count)->subGenres.size() > 19 * (1 + tableOverflowCount)) // Sjekker om vektoren har overFlow og inkrementerer overflow i steden for count
     {
-        count = count - genreVector.size(); //sørger for at count ikke blir større en size 
+        tableOverflowCount++;
     }
-    dropDownList.setSelectedIndex(0); // samme som i decrement count
+    else 
+    {
+        count++;
+        if (count >= genreVector.size())
+        {
+            count = count - genreVector.size();  //sørger for at count ikke blir mindre en null
+        }
+        dropDownList.setSelectedIndex(0); // reseter dropDownList sin indeks for å ikke få out of range errors
+        tableOverflowCount = 0; // reseter overflow count
+    }
 }
 
 void GenreWindow::RateCallback()

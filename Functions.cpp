@@ -12,7 +12,7 @@ void Run()
     {
         if(!win.GetHomeBool()) // Denne situasjonen gjelder for når vi ønsker å vise tabellen
         {
-            win.DrawTable(); // Denne funksjonen tegner hele tabellen for den Genre som gjelder
+            win.DrawTableOverflow(); // Denne funksjonen tegner hele tabellen for den Genre som gjelder
             win.DrawImage(); // Denne funksjonen tegner bilde til den Genre som gjelder 
             win.UpdateDropDown(); // Denne funksjon oppdateter dropdownlisten til å inneholdet navnet på SubGenre til den Genre som gjelder
             win.DrawRatingText(); // Denne funksjon tegner verdien til slideren

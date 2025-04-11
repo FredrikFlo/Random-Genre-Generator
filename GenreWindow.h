@@ -16,6 +16,7 @@
 
 // Dette er bare noen konstanter som blir brukt litt her og der. Egentlig litt rotete
 static constexpr double pi = 3.14159265358979323846; 
+
 static constexpr int genreCellWidth = 350;
 static constexpr int ratingCellWidth = 100; 
 static constexpr int CellHeight = 33; 
@@ -52,6 +53,7 @@ class GenreWindow: public TDT4102::AnimationWindow
 
     bool homeWindow = false; // Denne boolen er true dersom animation window skal vise hjem skjermen 
     int count = 0; // Denne verdien tilsvarer indeksen i genreVector som skal bli vist og håndtert for diverse funksjoner 
+    int tableOverflowCount = 0;
     std::vector<std::map<std::string, int>> stringToCountMapVector; // Detter er en vektor med flere mapper som tilsvarer alle navne til alle SubGenre og hvor de ligger i subGenres i hoved Genre instansen
     // Den er initialisert i konstruktøren 
     std::map<std::string, int> stringToGenreCountMap; // Dette er en mappe som tar inn navne på alle instansene i genresVectoren og gir indeksen
@@ -72,6 +74,7 @@ class GenreWindow: public TDT4102::AnimationWindow
     //Denne er kalt på inne i DrawTable
     void DrawTable(); //Vil BARE funke for Genre pointer siden SubGenre er ikke interessert i subGenres vektoren
     // Denne blir håndtert med henysn til counten over
+    void DrawTableOverflow(); // Denne funksjonen bør tegne en nye side dersom tabellen før var større en 19
     void DrawImage(); // Tegner bilde som med hensyn til count definert over
     void DrawRatingText(); // Denne tegner verdien på slideren
     void UpdateDropDown(); // Denne opdaterer valgen på dropdownlist med hensyn på counten over
